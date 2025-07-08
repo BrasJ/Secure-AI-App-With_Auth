@@ -10,7 +10,7 @@ export function Layout() {
                 <nav>
                     <SignedIn>
                         <Link to="/">Generate Challenge</Link>
-                        <Link to="/">History</Link>
+                        <Link to="/history">History</Link>
                         <UserButton/>
                     </SignedIn>
                 </nav>
