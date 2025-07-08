@@ -1,5 +1,7 @@
 import "react"
 
 export function ChallengeGenerator() {
-    return <>></>
+    return <div className="challenge-container">
+        <h2>Coding Challenge Generator</h2>
+    </div>
 }

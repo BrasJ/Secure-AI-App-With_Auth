@@ -1,5 +1,7 @@
 import "react"
 
 export function MCQChallenge() {
-    return <>></>
+    return <div className="challenge-display">
+        <p><strong>Difficulty</strong></p>
+    </div>
 }
