@@ -46,10 +46,10 @@ export function HistoryPanel() {
                     return <MCQChallenge
                                 challenge={challenge}
                                 key={challenge.id}
-                                showExplantaion
+                                showExplanation
                             />
                 })}
             </div>
-            }
+        }
     </div>
 }

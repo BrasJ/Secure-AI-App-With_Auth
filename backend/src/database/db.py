@@ -24,13 +24,13 @@ def reset_quota_if_needed(db: Session, quota: models.ChallengeQuota):
     return quota
 
 def create_challenge(
-        db: Session,
-        difficulty: str,
-        created_by: str,
-        title: str,
-        options: str,
-        correct_answer_id: int,
-        explanation: str
+    db: Session,
+    difficulty: str,
+    created_by: str,
+    title: str,
+    options: str,
+    correct_answer_id: int,
+    explanation: str
 ):
     db_challenge = models.Challenge(
         difficulty=difficulty,
@@ -38,7 +38,7 @@ def create_challenge(
         title=title,
         options=options,
         correct_answer_id=correct_answer_id,
-        explanation=explanation,
+        explanation=explanation
     )
     db.add(db_challenge)
     db.commit()

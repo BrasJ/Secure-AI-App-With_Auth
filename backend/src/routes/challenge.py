@@ -30,11 +30,11 @@ async def generate_challenge(request: ChallengeRequest, request_obj: Request, db
 
         quota = get_challenge_quota(db, user_id)
         if not quota:
-            quota = create_challenge_quota(db, user_details)
+            quota = create_challenge_quota(db, user_id)
 
         quota = reset_quota_if_needed(db, quota)
 
-        if quota.remaining_quota <= 0:
+        if quota.quota_remaining <= 0:
             raise HTTPException(status_code=429, detail="Quota exhausted")
 
         challenge_data = generate_challenge_with_ai(request.difficulty)
@@ -49,7 +49,7 @@ async def generate_challenge(request: ChallengeRequest, request_obj: Request, db
             explanation=challenge_data["explanation"]
         )
 
-        quota.remaining_quota -= 1
+        quota.quota_remaining -= 1
         db.commit()
 
         return {
@@ -59,7 +59,7 @@ async def generate_challenge(request: ChallengeRequest, request_obj: Request, db
             "options": json.loads(new_challenge.options),
             "correct_answer_id": new_challenge.correct_answer_id,
             "explanation": new_challenge.explanation,
-            "timestamp": new_challenge.data_created.isoformat()
+            "timestamp": new_challenge.date_created.isoformat()
         }
 
     except Exception as e:

@@ -9,7 +9,7 @@ router = APIRouter()
 
 @router.post("/clerk")
 async def handle_user_created(request: Request, db = Depends(get_db)):
-    webhook_secret = os.getenv('WEBHOOK_SECRET')
+    webhook_secret = os.getenv('CLERK_WEBHOOK_SECRET')
 
     if not webhook_secret:
         raise HTTPException(status_code=500, detail="CLERK_WEBHOOK_SECRET is not set")

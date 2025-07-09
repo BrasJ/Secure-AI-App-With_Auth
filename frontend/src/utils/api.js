@@ -14,7 +14,7 @@ export const useApi = () => {
 
         const response = await fetch(`http://localhost:8000/api/${endpoint}`, {
             ...defaultOptions,
-            ...options
+            ...options,
         })
 
         if (!response.ok) {

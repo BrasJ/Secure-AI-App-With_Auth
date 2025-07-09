@@ -62,7 +62,7 @@ export function ChallengeGenerator() {
             <label htmlFor="difficulty">Select Difficulty</label>
             <select
                 id="difficulty"
-                value ={difficulty}
+                value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
                 disabled={isLoading}
             >
@@ -74,7 +74,7 @@ export function ChallengeGenerator() {
 
         <button
             onClick={generateChallenge}
-            disabled={false}
+            disabled={isLoading || quota?.quota_remaining === 0}
             className="generate-button"
         >
             {isLoading ? "Generating..." : "Generate Challenge"}
