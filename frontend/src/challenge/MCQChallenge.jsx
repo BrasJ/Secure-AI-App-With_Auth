@@ -1,9 +1,9 @@
 import "react"
 import {useState} from "react";
 
-export function MCQChallenge({challenge, showExplantaion = false}) {
+export function MCQChallenge({challenge, showExplanation = false}) {
     const [selectedOption, setSelectedOption] = useState(null)
-    const [shouldShowExplanation, setShouldShowExplanation] = useState(showExplantaion)
+    const [shouldShowExplanation, setShouldShowExplanation] = useState(showExplanation)
 
 
     // Ensures options are in JSON
@@ -47,7 +47,7 @@ export function MCQChallenge({challenge, showExplantaion = false}) {
                 </div>
             ))}
         </div>
-        {shouldShowExplantaion && selectedOption !== null && (
+        {shouldShowExplanation && selectedOption !== null && (
             <div className="explanation">
                 <h4>Explanation</h4>
                 <p>{challenge.explanation}</p>

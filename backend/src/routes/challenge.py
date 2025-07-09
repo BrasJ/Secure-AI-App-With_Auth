@@ -1,8 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-
-from ..database import models
 from ..database.db import (
     get_challenge_quota,
     create_challenge,
@@ -25,14 +23,14 @@ class ChallengeRequest(BaseModel):
         json_schema_extra = {"example": {"difficulty": "easy"}}
 
 @router.post("/generate-challenge")
-async def generate_challenge(request: ChallengeRequest, db: Session = Depends(get_db)):
+async def generate_challenge(request: ChallengeRequest, request_obj: Request, db: Session = Depends(get_db)):
     try:
-        user_details = authenticate_and_get_user_details(request)
+        user_details = authenticate_and_get_user_details(request_obj)
         user_id = user_details.get("user_id")
 
         quota = get_challenge_quota(db, user_id)
         if not quota:
-            create_challenge(db, user_details)
+            quota = create_challenge_quota(db, user_details)
 
         quota = reset_quota_if_needed(db, quota)
 
@@ -45,7 +43,10 @@ async def generate_challenge(request: ChallengeRequest, db: Session = Depends(ge
             db=db,
             difficulty=request.difficulty,
             created_by=user_id,
-            **challenge_data
+            title=challenge_data["title"],
+            options=json.dumps(challenge_data["options"]),
+            correct_answer_id=challenge_data["correct_answer_id"],
+            explanation=challenge_data["explanation"]
         )
 
         quota.remaining_quota -= 1

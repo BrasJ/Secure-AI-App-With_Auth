@@ -9,7 +9,8 @@ app.add_middleware(
     allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
-    allow_header=["8"]
+    allow_headers=["*"]
 )
 
 app.include_router(challenge.router, prefix="/api")
+app.include_router(webhooks.router, prefix="/webhooks")
